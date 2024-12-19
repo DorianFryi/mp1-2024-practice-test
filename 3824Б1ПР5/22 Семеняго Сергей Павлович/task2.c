@@ -10,6 +10,28 @@ struct Indices
 };
 struct Indices task2(double A[], size_t n)
 {
-  struct Indices indices = {-2, -2};
+  struct Indices indices = {-1, -1};
+  if (n < 2) {
+    return indices;
+  }
+  double min_diff = A[1] - A[0];
+  if (min_diff < 0) {
+    min_diff = -min_diff;
+  }
+  indices.first_index = 0;
+  indices.second_index = 1;
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = i + 1; j < n; ++j) {
+      double diff = A[j] - A[i];
+      if (diff < 0) {
+        diff = -diff;
+      }
+      if (diff < min_diff) {
+        min_diff = diff;
+        indices.first_index = i;
+        indices.second_index = j;
+      }
+    }
+  }
   return indices;
 }
